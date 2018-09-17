@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="School" Class="all_classDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MDWASIFURRAHMAN;Initial Catalog=School;Integrated Security=True" SettingsObjectName="SchoolManagements.Properties.Settings" SettingsPropertyName="SchoolConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Courses" Member="Courses">
+    <Type Name="Course">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Course_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Note_Course" Member="Note" ThisKey="NID" OtherKey="Note_Id" Type="Note" IsForeignKey="true" />
+      <Association Name="Teacher_Course" Member="Teacher" ThisKey="TID" OtherKey="teacher_Id" Type="Teacher" IsForeignKey="true" />
+      <Association Name="student_Course" Member="student" ThisKey="SID" OtherKey="Student_Id" Type="student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Note" Member="Notes">
+    <Type Name="Note">
+      <Column Name="Course_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tech_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stu_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note_link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Note_Course" Member="Courses" ThisKey="Note_Id" OtherKey="NID" Type="Course" />
+      <Association Name="Teacher_Note" Member="Teacher" ThisKey="Tech_Id" OtherKey="teacher_Id" Type="Teacher" IsForeignKey="true" />
+      <Association Name="student_Note" Member="student" ThisKey="Stu_Id" OtherKey="Student_Id" Type="student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Teacher" Member="Teachers">
+    <Type Name="Teacher">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="teacher_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Note_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Teacher_Course" Member="Courses" ThisKey="teacher_Id" OtherKey="TID" Type="Course" />
+      <Association Name="Teacher_Note" Member="Notes" ThisKey="teacher_Id" OtherKey="Tech_Id" Type="Note" />
+    </Type>
+  </Table>
+  <Table Name="dbo.student" Member="students">
+    <Type Name="student">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Student_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="student_Course" Member="Courses" ThisKey="Student_Id" OtherKey="SID" Type="Course" />
+      <Association Name="student_Note" Member="Notes" ThisKey="Student_Id" OtherKey="Stu_Id" Type="Note" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="Admin_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
